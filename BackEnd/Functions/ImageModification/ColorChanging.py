@@ -5,11 +5,11 @@ from io import BytesIO
 
 
 class ImageMod:
-    def __init__(self, base64_str: str) -> None:
+    def __init__(self, img_base64_str: str) -> None:
         self._pil_image = None
         self._pixels = None
         self._image_data = None
-        self._load_image_from_base64(base64_str)
+        self._load_image_from_base64(img_base64_str)
 
     def _load_image_from_base64(self, base64_str: str) -> None:
         """
