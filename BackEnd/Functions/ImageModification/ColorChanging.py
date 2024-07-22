@@ -82,4 +82,3 @@ color_range = [
 
 im.change_colours(color_range)
 im.pillow_show()  # Image after modifications
-TEST
