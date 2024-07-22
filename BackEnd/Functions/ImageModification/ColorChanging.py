@@ -5,39 +5,40 @@ from io import BytesIO
 
 
 class ImageMod:
-    def __init__(self, base64_str: str):
+    def __init__(self, img_base64_str: str) -> None:
+        self._pil_image = None
+        self._pixels = None
+        self._image_data = None
+        self._load_image_from_base64(img_base64_str)
+
+    def _load_image_from_base64(self, base64_str: str) -> None:
+        """
+        Load an image from a base64 encoded string and convert it to RGB format.
+        :param base64_str: Base64 encoded string representing image data
+        :raises:
+            ValueError: If base64 string is invalid
+        """
         try:
             self._image_data = base64.b64decode(base64_str)
-            self.pillow_image()
-        except Exception as e:
-            raise ValueError("Invalid image data or base64 string") from e
-
-    @property
-    def image_data(self):
-        return self._image_data
-
-    @image_data.setter
-    def image_data(self, value: str):
-        if not isinstance(value, str):
-            raise ValueError("Image data must be in base64 format")
-        try:
-            self._image_data = base64.b64decode(value)
-            self.pillow_image()
-        except Exception as e:
-            raise ValueError("Invalid image data or base64 string") from e
-
-    def pillow_image(self):
-        try:
             self._pil_image = Image.open(io.BytesIO(self._image_data))
             self._pil_image = self._pil_image.convert('RGB')
             self._pixels = self._pil_image.load()
-        except Exception as e:
-            raise ValueError("Unable to create PIL image") from e
+        except (base64.binascii.Error, IOError, ValueError) as e:
+            raise ValueError("Invalid image data or base64 string") from e
 
-    def pillow_show(self):
+    def pillow_show(self) -> None:
+        """
+        Displays the image that is in self._pil_image
+        """
         self._pil_image.show()
 
-    def change_colours(self, parameters):
+    def change_colours(self, parameters: list[dict]):
+        """
+        Change the image color depending on provided parameters.
+        :param parameters: List of dictionaries where each dictionary contains:
+            - 'ColorRange': A dictionary with 'FromColor' and 'ToColor' specifying the color range to match.
+            - 'ReplaceColor': The color to replace the matched colors with.
+        """
         width, height = self._pil_image.size
         for x in range(width):
             for y in range(height):
@@ -50,35 +51,48 @@ class ImageMod:
                             min(b_start, b_end) <= b <= max(b_start, b_end)):
                         self._pil_image.putpixel((x, y), parameter['ReplaceColor'])
 
+    @property
+    def image_data_base64(self) -> str:
+        """
+        Get the image data as a base64 encoded string.
+        :return: The base64 encoded string.
+        """
+        buffered = BytesIO()
+        self._pil_image.save(buffered, format='PNG')
+        return base64.b64encode(buffered.getvalue()).decode('utf-8')
 
-base64_string = "EXAMPLE IMAGE"
 
-im = ImageMod(base64_string)
-im.pillow_show()  # Image before modifications
+if __name__ == '__main__':
+    base64_string = "ImageBase64Format"
 
-# Example Settings
-color_range = [
-    {
-        'ColorRange': {
-            'FromColor': (0, 0, 0),
-            'ToColor': (20, 20, 20)},
-        'ReplaceColor': (255, 255, 255)
-    },
-    {
-        'ColorRange': {
-            'FromColor': (255, 255, 255),
-            'ToColor': (200, 200, 200)},
-        'ReplaceColor': (0, 0, 0)
-    },
+    image_converter = ImageMod(base64_string)
+    image_converter.pillow_show()  # Image before modifications
 
-    {
-        'ColorRange': {
-            'FromColor': (50, 250, 50),
-            'ToColor': (70, 180, 100)},
-        'ReplaceColor': (0, 0, 240)
-    },
+    # Example Settings
+    color_range = [
+        {
+            'ColorRange': {
+                'FromColor': (0, 0, 0),
+                'ToColor': (20, 20, 20)},
+            'ReplaceColor': (255, 255, 255)
+        },
+        {
+            'ColorRange': {
+                'FromColor': (255, 255, 255),
+                'ToColor': (200, 200, 200)},
+            'ReplaceColor': (0, 0, 0)
+        },
 
-]
+        {
+            'ColorRange': {
+                'FromColor': (50, 250, 50),
+                'ToColor': (70, 180, 100)},
+            'ReplaceColor': (0, 0, 240)
+        },
 
-im.change_colours(color_range)
-im.pillow_show()  # Image after modifications
+    ]
+
+    image_converter.change_colours(color_range)
+    image_converter.pillow_show()  # Image after modifications
+
+    print(image_converter.image_data_base64)  # Prints Modified image in base64
