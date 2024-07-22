@@ -44,24 +44,25 @@ class ImageMod:
                 r, g, b = self._pixels[x, y]
                 for parameter in parameters:
                     r_start, g_start, b_start = parameter['ColorRange']['FromColor']
-                    r_end, g_end, b_end= parameter['ColorRange']['ToColor']
-                    if (min(r_start,r_end) <= r <= max(r_start,r_end) and
+                    r_end, g_end, b_end = parameter['ColorRange']['ToColor']
+                    if (min(r_start, r_end) <= r <= max(r_start, r_end) and
                             min(g_start, g_end) <= g <= max(g_start, g_end) and
-                            min(b_start,b_end) <= b <= max(b_start,b_end)):
+                            min(b_start, b_end) <= b <= max(b_start, b_end)):
                         self._pil_image.putpixel((x, y), parameter['ReplaceColor'])
 
 
 base64_string = "EXAMPLE IMAGE"
 
 im = ImageMod(base64_string)
-im.pillow_show() # Image before modifications
+im.pillow_show()  # Image before modifications
+
 # Example Settings
 color_range = [
     {
-        'ColorRange':{
-            'FromColor' : (0, 0, 0),
-            'ToColor' : (20, 20, 20)},
-        'ReplaceColor' : (255, 255, 255)
+        'ColorRange': {
+            'FromColor': (0, 0, 0),
+            'ToColor': (20, 20, 20)},
+        'ReplaceColor': (255, 255, 255)
     },
     {
         'ColorRange': {
@@ -80,4 +81,4 @@ color_range = [
 ]
 
 im.change_colours(color_range)
-im.pillow_show() # Image after modifications
+im.pillow_show()  # Image after modifications
