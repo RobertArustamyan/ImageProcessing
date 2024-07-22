@@ -54,7 +54,8 @@ class ImageMod:
 base64_string = "EXAMPLE IMAGE"
 
 im = ImageMod(base64_string)
-im.pillow_show()
+im.pillow_show() # Image before modifications
+# Example Settings
 color_range = [
     {
         'ColorRange':{
@@ -79,4 +80,4 @@ color_range = [
 ]
 
 im.change_colours(color_range)
-im.pillow_show()
+im.pillow_show() # Image after modifications
