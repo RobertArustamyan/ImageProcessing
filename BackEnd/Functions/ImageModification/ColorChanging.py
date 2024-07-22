@@ -5,7 +5,7 @@ from io import BytesIO
 
 
 class ImageMod:
-    def __init__(self, base64_str: str):
+    def __init__(self, base64_str: str) -> None:
         try:
             self._image_data = base64.b64decode(base64_str)
             self.pillow_image()
@@ -13,7 +13,7 @@ class ImageMod:
             raise ValueError("Invalid image data or base64 string") from e
 
     @property
-    def image_data(self):
+    def image_data(self) -> bytes:
         return self._image_data
 
     @image_data.setter
@@ -51,7 +51,14 @@ class ImageMod:
                         self._pil_image.putpixel((x, y), parameter['ReplaceColor'])
 
 
-base64_string = "EXAMPLE IMAGE"
+    @property
+    def image_data_base64(self) -> str:
+        buffered = BytesIO()
+        self._pil_image.save(buffered, format='PNG')
+        return base64.b64encode(buffered.getvalue()).decode('utf-8')
+
+
+base64_string = "ImageBase64Format"
 
 im = ImageMod(base64_string)
 im.pillow_show()  # Image before modifications
@@ -82,3 +89,4 @@ color_range = [
 
 im.change_colours(color_range)
 im.pillow_show()  # Image after modifications
+print(im.image_data_base64)
