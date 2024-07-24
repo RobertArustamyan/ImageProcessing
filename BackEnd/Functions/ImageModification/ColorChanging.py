@@ -49,7 +49,7 @@ class ImageMod:
                     if (min(r_start, r_end) <= r <= max(r_start, r_end) and
                             min(g_start, g_end) <= g <= max(g_start, g_end) and
                             min(b_start, b_end) <= b <= max(b_start, b_end)):
-                        self._pil_image.putpixel((x, y), parameter['ReplaceColor'])
+                        self._pil_image.putpixel((x, y), tuple(parameter['ReplaceColor']))
         print("Finished modifing part")
 
     @property
