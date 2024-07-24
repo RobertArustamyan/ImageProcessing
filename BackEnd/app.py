@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_cors import CORS
-from blueprints.configurator.configurator import conf_bp
+from BackEnd.blueprints.configurator.configurator import conf_bp
 
 app = Flask(__name__)
 CORS(app)
