@@ -46,6 +46,10 @@ class ImageMod:
                 for parameter in parameters:
                     r_start, g_start, b_start = parameter['ColorRange']['FromColor']
                     r_end, g_end, b_end = parameter['ColorRange']['ToColor']
+                    print(
+                        f"FromColor: ({r_start}, {g_start, b_start}), ToColor: ({r_end, g_end, b_end}), ReplaceColor: {parameter["ReplaceColor"]}")
+                    print(
+                        f"Types - FromColor: {type(parameter['ColorRange']['FromColor'])}, ToColor: {type(parameter['ColorRange']['ToColor'])}, ReplaceColor: {type(parameter["ReplaceColor"])}")
                     if (min(r_start, r_end) <= r <= max(r_start, r_end) and
                             min(g_start, g_end) <= g <= max(g_start, g_end) and
                             min(b_start, b_end) <= b <= max(b_start, b_end)):
