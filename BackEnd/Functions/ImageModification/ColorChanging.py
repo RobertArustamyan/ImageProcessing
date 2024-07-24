@@ -50,7 +50,6 @@ class ImageMod:
                             min(g_start, g_end) <= g <= max(g_start, g_end) and
                             min(b_start, b_end) <= b <= max(b_start, b_end)):
                         self._pil_image.putpixel((x, y), tuple(parameter['ReplaceColor']))
-        print("Finished modifing part")
 
     @property
     def image_data_base64(self) -> str:

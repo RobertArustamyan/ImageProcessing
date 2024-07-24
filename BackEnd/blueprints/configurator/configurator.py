@@ -11,19 +11,15 @@ def process():
             return jsonify({'error': 'Invalid data format'}), 400
 
         processed_data = image_data_processing(data)
-        print('Data is ready to return')
         return jsonify({'processed_image': processed_data}), 200
 
     except Exception as e:
-        print("I dont know error")
         return jsonify({'error': str(e)}), 500
 
 
 def image_data_processing(image_body):
     image_converter = ImageMod(image_body['image_base64'])
-    print('Object was created')
     image_converter.change_colours(image_body['color_conf'])
-    print("Color was changed in image_data function")
     return image_converter.image_data_base64
 
 
