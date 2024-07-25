@@ -4,7 +4,7 @@ from BackEnd.blueprints.configurator.configurator import conf_bp
 
 app = Flask(__name__)
 CORS(app)
-app.register_blueprint(conf_bp, url_prefix='/conf')
+app.register_blueprint(conf_bp, url_prefix='/image')
 
 if __name__ == "__main__":
     app.run(debug=True)
