@@ -19,7 +19,7 @@ def process():
 
 def image_data_processing(image_body):
     image_converter = ImageMod(image_body['image_base64'])
-    image_converter.change_colours(image_body['color_conf'])
+    image_converter.change_colors(image_body['color_conf'])
     return image_converter.image_data_base64
 
 
