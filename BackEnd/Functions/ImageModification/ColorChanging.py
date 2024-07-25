@@ -38,7 +38,7 @@ class ImageMod:
         """
         self._pil_image.show()
 
-    def change_colors(self, parameters: list[dict]):
+    def change_colors(self, parameters: list[dict]) -> None:
         """
         Change the image color depending on provided parameters.
         :param parameters: List of dictionaries where each dictionary contains:
@@ -58,7 +58,18 @@ class ImageMod:
                             min(b_start, b_end) <= b <= max(b_start, b_end)):
                         self._pil_image.putpixel((x, y), tuple(parameter['ReplaceColor']))
 
-    def invert_colors(self):
+    def convert_to_grayscale(self) -> None:
+        """
+        Convert the image to grayscale.
+        """
+        self._load_default_image()
+        self._pil_image = self._pil_image.convert('L')
+        self._pixels = self._pil_image.load()
+
+    def invert_colors(self) -> None:
+        """
+        Invert the colors of the image.
+        """
         self._load_default_image()
         width, height = self._pil_image.size
         for x in range(width):
@@ -75,11 +86,6 @@ class ImageMod:
         buffered = BytesIO()
         self._pil_image.save(buffered, format='PNG')
         return base64.b64encode(buffered.getvalue()).decode('utf-8')
-
-    def convert_to_grayscale(self) -> None:
-        self._load_default_image()
-        self._pil_image = self._pil_image.convert('L')
-        self._pixels = self._pil_image.load()
 
 
 if __name__ == '__main__':
@@ -111,11 +117,11 @@ if __name__ == '__main__':
 
     ]
 
-    image_converter.change_colors(color_range) # Changes image colors according to parameters
+    image_converter.change_colors(color_range)  # Changes image colors according to parameters
     image_converter.pillow_show()
 
-    image_converter.convert_to_grayscale() # Makes image gray
+    image_converter.convert_to_grayscale()  # Makes image gray
     image_converter.pillow_show()
 
-    image_converter.invert_colors() # Inverts image colors
+    image_converter.invert_colors()  # Inverts image colors
     image_converter.pillow_show()
