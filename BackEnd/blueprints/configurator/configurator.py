@@ -1,10 +1,20 @@
 from flask import Blueprint, request, jsonify
 from BackEnd.Functions.ImageModification.ColorChanging import ImageMod
 from BackEnd.Functions.ImageModification.DataProcessing import DataProcessor
+
 conf_bp = Blueprint('conf', __name__)
 
 @conf_bp.route('/process-image', methods=['POST'])
 def process():
+    """
+
+    Endpoint to process an image with a specified color configuration.
+
+    Expects a JSON payload with 'image_base64' and 'color_conf' fields.
+    Processes the image based on the provided color configuration and returns the processed image.
+
+    :return: JSON response with the processed image or error message.
+    """
     try:
         data = request.get_json()
         if not data or 'image_base64' not in data or 'color_conf' not in data:
@@ -17,6 +27,15 @@ def process():
 
 @conf_bp.route('/grayscale-image',methods=['POST'])
 def grayscale():
+    """
+
+    Endpoint to convert an image to grayscale.
+
+    Expects a JSON payload with 'image_base64' field.
+    Converts the image to grayscale and returns the processed image.
+
+    :return: JSON response with the processed image or error message.
+    """
     try:
         data = request.get_json()
         if not data or 'image_base64' not in data:
@@ -30,6 +49,14 @@ def grayscale():
 
 @conf_bp.route('/invert-image',methods=['POST'])
 def invert():
+    """
+    Endpoint to invert the colors of an image.
+
+    Expects a JSON payload with 'image_base64' field.
+    Inverts the colors of the image and returns the processed image.
+
+    :return: JSON response with the processed image or error message.
+    """
     try:
         data = request.get_json()
         if not data or 'image_base64' not in data:
