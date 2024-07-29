@@ -4,7 +4,7 @@ This project provides an API to process images by replacing colors within specif
 
 ## Usage 
 
-API Base URL: `industrial-reta-robertarustamyan-58b2564f.koyeb.app/image`
+API Base URL: `https://industrial-reta-robertarustamyan-58b2564f.koyeb.app/image`
 
 ### Endpoints
 - **Color Replacement** `/process-image` 
