@@ -17,10 +17,10 @@ def process():
     """
     try:
         data = request.get_json()
-        if not data or 'image_base64' not in data or 'color_conf' not in data:
+        if not data or 'Image' not in data or 'ColorConfigs' not in data:
             return jsonify({'error': 'Invalid data format'}), 400
         processor = DataProcessor(image_body=data, convert_format='configuration')
-        return jsonify({'processed_image': processor.data_processing}), 200
+        return jsonify({'ProcessedImage': processor.data_processing}), 200
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
@@ -38,10 +38,10 @@ def grayscale():
     """
     try:
         data = request.get_json()
-        if not data or 'image_base64' not in data:
+        if not data or 'Image' not in data:
            return jsonify({'error': 'Invalid data format'}), 400
         processor = DataProcessor(image_body=data, convert_format='grayscale')
-        return jsonify({'processed_image': processor.data_processing}), 200
+        return jsonify({'ProcessedImage': processor.data_processing}), 200
 
     except Exception as e:
         return jsonify({'error' : str(e)}), 500
@@ -59,10 +59,10 @@ def invert():
     """
     try:
         data = request.get_json()
-        if not data or 'image_base64' not in data:
+        if not data or 'Image' not in data:
             return jsonify({'error': 'Invalid data format'}), 400
         processor = DataProcessor(image_body=data, convert_format='invert')
-        return jsonify({'processed_image': processor.data_processing}), 200
+        return jsonify({'ProcessedImage': processor.data_processing}), 200
 
     except Exception as e:
         return jsonify({'error' : str(e)}), 500

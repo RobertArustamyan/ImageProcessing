@@ -11,11 +11,11 @@ class DataProcessor:
         Converts image depending on self._convert_format.
         :return: The base64 encoded string
         """
-        image_converter = ImageMod(self._image_body['image_base64'])
+        image_converter = ImageMod(self._image_body['Image'])
         if self._convert_format == 'grayscale':
             image_converter.convert_to_grayscale()
         elif self._convert_format == 'invert':
             image_converter.invert_colors()
         else:
-            image_converter.change_colors(self._image_body['color_conf'])
+            image_converter.change_colors(self._image_body['ColorConfigs'])
         return image_converter.image_data_base64
