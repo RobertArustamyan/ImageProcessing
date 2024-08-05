@@ -51,12 +51,15 @@ class ImageMod:
             for y in range(height):
                 r, g, b = self._pixels[x, y]
                 for parameter in parameters:
-                    r_start, g_start, b_start = parameter['ColorRange']['FromColor']
-                    r_end, g_end, b_end = parameter['ColorRange']['ToColor']
+                    start_colors = [int(num) for num in parameter['ColorRange']['FromColor'].split(',')]
+                    end_colors = [int(num) for num in parameter['ColorRange']['ToColor'].split(',')]
+                    to_colors = (int(num) for num in parameter['ReplaceColor'].split(','))
+                    r_start, g_start, b_start = start_colors
+                    r_end, g_end, b_end = end_colors
                     if (min(r_start, r_end) <= r <= max(r_start, r_end) and
                             min(g_start, g_end) <= g <= max(g_start, g_end) and
                             min(b_start, b_end) <= b <= max(b_start, b_end)):
-                        self._pil_image.putpixel((x, y), tuple(parameter['ReplaceColor']))
+                        self._pil_image.putpixel((x, y), tuple(to_colors))
 
     def convert_to_grayscale(self) -> None:
         """
@@ -123,5 +126,5 @@ if __name__ == '__main__':
     image_converter.convert_to_grayscale()  # Makes image gray
     image_converter.pillow_show()
 
-    image_converter.invert_colors()  # Inverts image colors
+    image_converter.    invert_colors()  # Inverts image colors
     image_converter.pillow_show()
