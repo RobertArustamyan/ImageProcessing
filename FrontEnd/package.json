@@ -40,6 +40,10 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.5.2"
+    "typescript": "~5.5.2",
+    "@semantic-release/release-notes-generator": "^14.0.1",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/github": "^10.1.0",
+    "@semantic-release/git": "^10.0.1"
   }
 }
