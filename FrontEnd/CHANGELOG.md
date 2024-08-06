@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/RobertArustamyan/ImageProcessing/compare/v1.0.0...v1.0.1) (2024-08-06)
+
+
+### Bug Fixes
+
+* **FE Build Script:** Updated build script for prod. ([a1228c5](https://github.com/RobertArustamyan/ImageProcessing/commit/a1228c53f59522ae4b78617548d04eda740e9529))
+
 # 1.0.0 (2024-08-06)
 
 

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "start": "ng serve --port=8080",
-    "build": "ng build",
+    "build": "ng build --configuration=production",
     "watch": "ng build --watch --configuration development",
     "serve:ssr:ImageProcessingUI": "node dist/front-end/server/server.mjs"
   },
