@@ -1,0 +1,37 @@
+@keyframes rotate-loader {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loader-wrapper {
+  width: 100vw;
+  height: 100dvh;
+
+  background-color: rgba(0, 0, 0, 0.4);
+
+  i {
+    transition: 0.2s transform;
+    animation: rotate-loader 0.6s linear Infinite;
+    font-size: 50px;
+  }
+}
+
+.custom-configs-wrapper {
+  width: max-content;
+  max-height: 36vh;
+  overflow-y: auto;
+
+  @media (max-width: 768px) {
+    max-height: 100%;
+  }
+}
+
+.remove-btn {
+  width: 24px;
+  height: 24px;
+  padding: 4px;
+}

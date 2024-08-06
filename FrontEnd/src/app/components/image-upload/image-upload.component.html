@@ -1,0 +1,34 @@
+@if (!imgControl.value) {
+  <div class="img-dropzone"
+       imgDrag
+       (click)="imgInput.click()"
+       (file)="imageDropped($event)">
+    <div class="drag-message flex col gap-10 justify-content-center align-items-center">
+      <i class="pi pi-image icon-max"></i>
+      <span class="flex gap-5 align-items-center">{{ 'Drag your image' }}</span>
+    </div>
+  </div>
+
+  <input style="display: none;"
+         #imgInput
+         type="file"
+         accept="image/png,image/jpg,image/jpeg"
+         (change)="onFileChange($event)"/>
+} @else {
+  <div class="img-preview">
+    <div class="img-container">
+      <div class="rounded-btn gray-btn img-cancel" (click)="imageClear()">
+        <button
+          pButton
+          pRipple
+          [rounded]="true"
+          size="small"
+          icon="pi pi-times img-cancel"
+          class="download-btn p-button-warning absolute">
+        </button>
+      </div>
+      <img [src]="imgControl.value"
+           class="selected-img" alt="Image"/>
+    </div>
+  </div>
+}

@@ -1,0 +1,23 @@
+<div class="img-preview relative" [ngClass]="{'border-none	': imgSrc}">
+  <div class="img-container flex p-2 gap-2 justify-content-center align-items-center">
+    @if (imgSrc) {
+      <img [src]="imgSrc"
+           class="selected-img" alt="Image"/>
+    } @else {
+      <span class="text-center">{{ placeholderText }}</span>
+      <i class="pi pi-images"></i>
+    }
+  </div>
+
+  @if (imgSrc) {
+    <button
+      pButton
+      pRipple
+      [rounded]="true"
+      size="small"
+      (click)="onDownloadImage()"
+      icon="pi pi-download"
+      class="download-btn p-button-warning absolute">
+    </button>
+  }
+</div>
