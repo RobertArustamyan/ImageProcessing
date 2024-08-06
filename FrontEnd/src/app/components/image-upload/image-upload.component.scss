@@ -1,0 +1,59 @@
+.img-dropzone {
+  width: 400px;
+  height: 300px;
+  display: table;
+  background-color: transparent !important;
+  border: 1px solid #aaa;
+  border-radius: 1rem;
+  transition: 0.2s;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.3) !important;
+  }
+
+  .drag-message {
+    width: 100%;
+    height: 100%;
+    gap: 10px;
+    text-align: center;
+    cursor: pointer;
+  }
+}
+
+.img-preview {
+  width: 400px;
+  height: 300px;
+  border-radius: 1rem;
+  user-select: none;
+  transition: 0.2s;
+
+  .img-container {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+    .selected-img {
+      display: block;
+      width: 100%;
+      height: 100%;;
+      border-radius: 10px;
+      object-fit: contain;
+    }
+
+    .img-cancel {
+      position: absolute;
+      right: 24px;
+      top: 24px;
+      text-align: center;
+      cursor: pointer;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .img-dropzone, .img-preview {
+    width: 160px !important;
+    height: 100px !important;
+  }
+}

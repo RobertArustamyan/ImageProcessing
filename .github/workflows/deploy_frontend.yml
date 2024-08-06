@@ -1,0 +1,51 @@
+name: Releasing Image Processing Tool
+
+env:
+  FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+  GITHUB_CONTEXT: ${{ toJSON(github) }}
+
+on:
+  push:
+    branches:
+      - front
+
+jobs:
+  release:
+    name: Releasing Image Processing Tool
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 'lts/*'
+
+      - name: Installing component dependencies
+        run: npm i
+        working-directory: FrontEnd
+
+      - name: Building component-package
+        run: npm run build
+        working-directory: FrontEnd
+
+      - name: Installing Firebase CLI
+        run: npm install -g firebase-tools
+        working-directory: FrontEnd
+
+      - name: Deploying To Firebase Hosting
+        run: firebase deploy --project image-processing-tool-frontend --token=${{ secrets.FIREBASE_TOKEN }}
+        working-directory: FrontEnd
+
+      - name: Releasing
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
+        working-directory: FrontEnd

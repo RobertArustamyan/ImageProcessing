@@ -1,1 +1,110 @@
-<router-outlet/>
+@if (pending) {
+  <div class="loader-wrapper w-100 h-100 absolute z-5 flex justify-content-center align-items-center">
+    <i class="pi pi-spinner"></i>
+  </div>
+}
+
+<div class="pt-4 flex flex-column gap-2 justify-content-center align-items-center">
+  <h1 class="m-0">Image Processing Tool</h1>
+  <p class="m-0">Hover over items to see instructions</p>
+</div>
+
+<div class="w-100 flex pt-8 gap-6 justify-content-center align-items-center">
+  <app-image-upload [imgControl]="imgControl"
+                    (imgBase64)="set64Str($event)"
+                    [title]="imgSrc ? '' : 'Drag or upload your images here'" />
+  <app-image-preview [imgSrc]="imgSrc"
+                     [title]="imgSrc ? '' : 'Upload an image and process it to see your result'"/>
+</div>
+
+<div class="w-100 mt-4 flex gap-4 justify-content-center align-items-center">
+  <button
+    pButton
+    pRipple
+    size="small"
+    [outlined]="true"
+    (click)="onGrayScaleOrInvertImage('grayScale')"
+    [disabled]="!img64 || pending"
+    label="Grayscale"
+    title="grayscale image colors"
+    class="p-button-primary">
+  </button>
+  <button
+    pButton
+    pRipple
+    size="small"
+    [outlined]="true"
+    (click)="onGrayScaleOrInvertImage('invert')"
+    [disabled]="!img64 || pending"
+    label="Invert"
+    title="Inverse image colors"
+    class="p-button-primary">
+  </button>
+  <button
+    pButton
+    pRipple
+    size="small"
+    [outlined]="true"
+    (click)="addRow()"
+    [disabled]="pending"
+    icon="pi pi-plus"
+    label="Custom Configs"
+    title="Add custom color range to change image pixels from selected range to desired color"
+    class="p-button-primary">
+  </button>
+</div>
+
+@if (colorConfigs.controls.length > 0) {
+  <div class="custom-configs-wrapper my-4 mx-auto py-1 px-6 flex flex-column gap-4 justify-content-center align-items-center">
+    <form [formGroup]="customConfigsForm">
+      <div formArrayName="ColorConfigs" class="flex flex-column gap-4 justify-content-center align-items-center">
+        @for (group of colorConfigs.controls; track group; let idx = $index) {
+          <div [formGroupName]="idx" class="form-group flex gap-2 align-items-center">
+            <div formGroupName="ColorRange" class="flex gap-2 align-items-center">
+              <div class="flex flex-column gap-2 align-items-center">
+                <span class="text-xs">From</span>
+                <p-colorPicker formControlName="FromColor" format="rgb" appendTo='body'/>
+              </div>
+              <div class="flex flex-column gap-2 align-items-center">
+                <span class="text-xs">To</span>
+                <p-colorPicker formControlName="ToColor" format="rgb" appendTo='body'/>
+              </div>
+            </div>
+            <div class="flex flex-column gap-2 align-items-center">
+              <span class="text-xs">Replace</span>
+              <p-colorPicker formControlName="ReplaceColor" format="rgb" appendTo='body'/>
+            </div>
+
+            <button
+              pButton
+              pRipple
+              size="small"
+              title="Remove configuration"
+              [outlined]="true"
+              (click)="removeRow(idx)"
+              [disabled]="pending"
+              icon="pi pi-times"
+              class="p-button-danger remove-btn">
+            </button>
+          </div>
+        }
+      </div>
+    </form>
+  </div>
+
+  <div class="my-4 flex justify-content-center align-items-center">
+    <button
+      pButton
+      pRipple
+      size="small"
+      title="Process Image with this configurations"
+      [outlined]="true"
+      (click)="onCustom()"
+      [disabled]="!img64 || pending"
+      icon="pi pi-microchip"
+      iconPos="right"
+      label="Process"
+      class="p-button-success py-1 px-2">
+    </button>
+  </div>
+}
