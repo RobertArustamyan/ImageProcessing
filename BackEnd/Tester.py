@@ -1,12 +1,12 @@
 """
 This is a test file and must be run only and only in case when the user wants to check if everything is installed correctly. It should be run after running app.py.
-"""
+    """
 
 import requests
 import json
 
 # Define the URL for the local server
-url = 'http://127.0.0.1:5000/image'
+url = 'https://industrial-reta-robertarustamyan-58b2564f.koyeb.app/image'
 
 # Test image for grayscale and invert endpoints
 testImage = {
@@ -27,17 +27,29 @@ processTestImage = {
     "ColorConfigs": [
         {
             "ColorRange": {
-                "FromColor": "0,0,0",
-                "ToColor": "40,40,40"
+                "FromColor": {'r': 0,
+                              'g':200,
+                              'b': 244},
+                "ToColor": {'r': 100,
+                              'g':200,
+                              'b': 200}
             },
-            "ReplaceColor": "255,255,255"
+            "ReplaceColor": {'r': 100,
+                              'g':200,
+                              'b': 0}
         },
         {
             "ColorRange": {
-                "FromColor": "255,255,255",
-                "ToColor": "200,200,200"
+                "FromColor": {'r': 255,
+                              'g':255,
+                              'b': 255},
+                "ToColor": {'r': 200,
+                              'g':200,
+                              'b': 200}
             },
-            "ReplaceColor": "0,0,0"
+            "ReplaceColor": {'r': 200,
+                              'g':0,
+                              'b': 0}
         }
     ]
 }
