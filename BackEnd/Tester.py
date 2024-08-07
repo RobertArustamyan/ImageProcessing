@@ -1,12 +1,12 @@
 """
 This is a test file and must be run only and only in case when the user wants to check if everything is installed correctly. It should be run after running app.py.
-"""
+    """
 
 import requests
 import json
 
 # Define the URL for the local server
-url = 'http://127.0.0.1:5000/image'
+url = 'https://industrial-reta-robertarustamyan-58b2564f.koyeb.app/image'
 
 # Test image for grayscale and invert endpoints
 testImage = {
