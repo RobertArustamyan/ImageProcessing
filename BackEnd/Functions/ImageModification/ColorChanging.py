@@ -51,15 +51,18 @@ class ImageMod:
             for y in range(height):
                 r, g, b = self._pixels[x, y]
                 for parameter in parameters:
-                    r_start = parameter['ColorRange']['FromColor']['r']
-                    g_start = parameter['ColorRange']['FromColor']['g']
-                    b_start = parameter['ColorRange']['FromColor']['b']
+                    start_colors = parameter['ColorRange']['FromColor']
+                    r_start = start_colors['r']
+                    g_start = start_colors['g']
+                    b_start = start_colors['b']
 
-                    r_end = parameter['ColorRange']['ToColor']['r']
-                    g_end = parameter['ColorRange']['ToColor']['g']
-                    b_end = parameter['ColorRange']['ToColor']['b']
+                    end_colors = parameter['ColorRange']['ToColor']
+                    r_end = end_colors['r']
+                    g_end = end_colors['g']
+                    b_end = end_colors['b']
 
-                    replace_colors = (parameter['ReplaceColor']['r'],parameter['ReplaceColor']['g'],parameter['ReplaceColor']['b'],)
+                    replace_color_dict = parameter['end_colors']
+                    replace_colors = (replace_color_dict['r'],replace_color_dict['g'],replace_color_dict['b'],)
                     if (min(r_start, r_end) <= r <= max(r_start, r_end) and
                             min(g_start, g_end) <= g <= max(g_start, g_end) and
                             min(b_start, b_end) <= b <= max(b_start, b_end)):

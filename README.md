@@ -12,7 +12,7 @@ The Tool is available [here](https://image-processing-tool-frontend.web.app/).
 
 View of the tool:
 
-![](Screens/Screen1.png)
+![](Screens/photo_5305527041975770510_y.jpg)
 
 In this example, image inversion is performed:
 
